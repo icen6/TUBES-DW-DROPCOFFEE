@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Drops Coffee</title>
+    <title>Drop Coffee</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -67,11 +67,27 @@
             >
           </div>
 
-          <!-- Class untuk masukan ke keranjang -->
-          <div class="flex items-center space-x-6">
-            <a href="#" class="text-gray-700 hidden tablet:inline-block">
+          <!-- Cart Button -->
+          <div class="relative">
+            <button id="cartButton" class="text-gray-700 relative">
               <i data-feather="shopping-bag" class="h-5 w-5"></i>
-            </a>
+              <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2"> 0 </span>
+            </button>
+
+            <!-- Ringkasan Keranjang -->
+            <div id="cartSummary" class="hidden absolute right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg rounded-lg p-6">
+              <h3 class="text-xl font-semibold mb-4">Shopping Cart</h3>
+              <ul id="cartItems" class="text-gray-600 space-y-4 mb-4">
+                <!-- Barang akan ditambahkan di sini -->
+              </ul>
+              <p class="text-lg font-semibold text-gray-700">Total : <span id="totalPrice" class="font-bold text-gray-900">Rp 0</span></p>
+              <button id="paymentButton" class="w-full bg-green-500 text-white text-lg font-medium px-4 py-2 rounded hover:bg-green-600 transition">Order Now</button>
+              <!-- Pesan jika keranjang kosong -->
+              <p id="emptyMessage" class="text-red-500 mt-4 text-center hidden">Keranjang masih kosong!</p>
+
+              <!-- Pesan Pembayaran Sukses -->
+              <p id="successMessage" class="text-green-500 mt-4 text-center hidden">Payment Success!</p>
+            </div>
           </div>
 
           <!-- Hamburger Icon -->
@@ -152,6 +168,12 @@
           >
             <!-- Tanggal & Waktu akan ditampilkan di sini -->
           </p>
+          <a
+          href="product.html"
+          class="mt-6 inline-block bg-coffee text-white py-2 px-6 rounded-lg hover:bg-coffee-dark transition"
+        >
+          ORDER NOW
+        </a>
         </div>
       </div>
     </section>
@@ -293,21 +315,19 @@
           </div>
         </div>
 
-        <!-- Non-Coffee Products -->
+        <!-- Non Coffee Products -->
         <div
           id="nonCoffeeProducts"
-          class="hidden grid grid-cols-1 md:grid-cols-4 gap-6 mt-8"
+          class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8"
         >
           <!-- Matcha -->
-          <div
-            class="bg-gray-100 p-4 shadow rounded max-w-md mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl"
-          >
+          <div class="bg-gray-100 p-4 shadow rounded">
             <img
               src="assets/matcha.png"
               alt="Matcha"
               class="w-full rounded-t"
             />
-            <h3 class="font-semibold text-lg mt-4 text-coffee font-['Road']">
+            <h3 class="font-semibold text-lg mt-4 text-coffee">
               Matcha
             </h3>
             <div class="text-yellow-500 mt-2">
@@ -317,18 +337,15 @@
               “Matcha memiliki rasa khas yang lembut dan kaya akan antioksidan,
               memberikan energi yang tahan lama.”
             </p>
-            <br />
           </div>
-          <!-- red velvet -->
+          <!-- Red Velvet -->
           <div class="bg-gray-100 p-4 shadow rounded">
             <img
               src="assets/redvelvet.png"
               alt="Red Velvet"
               class="w-full rounded-t"
             />
-            <h3 class="font-semibold text-lg mt-4 text-coffee font-['Road']">
-              Red Velvet
-            </h3>
+            <h3 class="font-semibold text-lg mt-4 text-coffee">Red Velvet</h3>
             <div class="text-yellow-500 mt-2">
               ⭐ 5.0 <span class="text-gray-500">(180 reviews)</span>
             </div>
@@ -336,18 +353,15 @@
               “Red Velvet menawarkan perpaduan rasa cokelat yang lembut dan
               manis dengan tekstur yang lembut dan creamy.”
             </p>
-            <br />
           </div>
-          <!-- Choco Hazelnut-->
+          <!-- Choco Hazelnut -->
           <div class="bg-gray-100 p-4 shadow rounded">
             <img
               src="assets/choco.png"
               alt="Choco Hazelnut"
               class="w-full rounded-t"
             />
-            <h3 class="font-semibold text-lg mt-4 text-coffee font-['Road']">
-              Choco Hazelnut
-            </h3>
+            <h3 class="font-semibold text-lg mt-4 text-coffee">Choco Hazelnut</h3>
             <div class="text-yellow-500 mt-2">
               ⭐ 4.8 <span class="text-gray-500">(450 reviews)</span>
             </div>
@@ -358,8 +372,12 @@
           </div>
           <!-- Taro -->
           <div class="bg-gray-100 p-4 shadow rounded">
-            <img src="assets/taro.png" alt="Taro" class="w-full rounded-t" />
-            <h3 class="font-semibold text-lg mt-4 text-coffee font-['Road']">
+            <img
+            src="assets/taro.png" 
+            alt="Taro"
+              class="w-full rounded-t"
+            />
+            <h3 class="font-semibold text-lg mt-4 text-coffee">
               Taro
             </h3>
             <div class="text-yellow-500 mt-2">
@@ -369,13 +387,13 @@
               “Taro memiliki rasa manis dan gurih dengan warna ungu yang khas,
               memberikan sensasi lembut yang menyegarkan.”
             </p>
-            <br />
           </div>
-        </div>
+        </div>  
 
+        <!-- Food Products -->
         <div
           id="foodProducts"
-          class="hidden grid grid-cols-1 md:grid-cols-4 gap-6 mt-8"
+          class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8"
         >
           <!--Tiramisu Cake -->
           <div class="bg-gray-100 p-4 shadow rounded">
@@ -384,18 +402,19 @@
               alt="Tiramisu Cake"
               class="w-full rounded-t"
             />
-            <h3 class="font-semibold text-lg mt-4 text-coffee font-['Road']">
+            <h3 class="font-semibold text-lg mt-4 text-coffee">
               Tiramisu Cake
             </h3>
             <div class="text-yellow-500 mt-2">
               ⭐ 4.9 <span class="text-gray-500">(360 reviews)</span>
             </div>
             <p class="text-gray-500 mt-2">
-              Tiramisu cake adalah cake lezat yang memadukan rasa manis dan
+              "Tiramisu cake adalah cake lezat yang memadukan rasa manis dan
               kopi, dengan lapisan krim mascarpone yang lembut dan kenikmatan
-              cokelat yang menggoda.
+              cokelat yang menggoda."
             </p>
           </div>
+
           <!-- Croissants -->
           <div class="bg-gray-100 p-4 shadow rounded">
             <img
@@ -403,18 +422,17 @@
               alt="Croissants"
               class="w-full rounded-t"
             />
-            <h3 class="font-semibold text-lg mt-4 text-coffee font-['Road']">
-              Croissants
-            </h3>
+            <h3 class="font-semibold text-lg mt-4 text-coffee">Croissants</h3>
             <div class="text-yellow-500 mt-2">
               ⭐ 5.0 <span class="text-gray-500">(180 reviews)</span>
             </div>
             <p class="text-gray-500 mt-2">
-              Roti khas Prancis berbentuk bulan sabit dengan tekstur renyah di
+              "Roti khas Prancis berbentuk bulan sabit dengan tekstur renyah di
               luar dan lembut berlapis di dalam, kaya rasa mentega. Cocok
-              dinikmati dengan kopi atau teh.
+              dinikmati dengan kopi atau teh."
             </p>
           </div>
+
           <!-- Waffle & Ice Cream -->
           <div class="bg-gray-100 p-4 shadow rounded">
             <img
@@ -422,18 +440,17 @@
               alt="Waffle & Ice Cream"
               class="w-full rounded-t"
             />
-            <h3 class="font-semibold text-lg mt-4 text-coffee font-['Road']">
-              Waffle & Ice Cream
-            </h3>
+            <h3 class="font-semibold text-lg mt-4 text-coffee">Waffle & Ice Cream</h3>
             <div class="text-yellow-500 mt-2">
               ⭐ 4.8 <span class="text-gray-500">(450 reviews)</span>
             </div>
             <p class="text-gray-500 mt-2">
-              Waffle hangat yang renyah di luar dan lembut di dalam, disajikan
+              "Waffle hangat yang renyah di luar dan lembut di dalam, disajikan
               dengan satu scoop es krim creamy pilihan Anda. Paduan sempurna
-              untuk manisnya hari Anda.
+              untuk manisnya hari Anda."
             </p>
           </div>
+
           <!-- Macaron -->
           <div class="bg-gray-100 p-4 shadow rounded">
             <img
@@ -441,20 +458,20 @@
               alt="Macaron"
               class="w-full rounded-t"
             />
-            <h3 class="font-semibold text-lg mt-4 text-coffee font-['Road']">
+            <h3 class="font-semibold text-lg mt-4 text-coffee">
               Macaron
             </h3>
             <div class="text-yellow-500 mt-2">
               ⭐ 4.9 <span class="text-gray-500">(390 reviews)</span>
             </div>
             <p class="text-gray-500 mt-2">
-              Kue mungil khas Prancis dengan tekstur renyah di luar dan lembut
+              "Kue mungil khas Prancis dengan tekstur renyah di luar dan lembut
               di dalam, diisi krim manis beragam rasa. Elegan dan lezat untuk
-              dinikmati kapan saja.
+              dinikmati kapan saja."
             </p>
           </div>
         </div>
-      </div>
+
       <div class="text-center mt-6">
         <a
           href="product.html"
@@ -732,6 +749,116 @@
     </footer>
 
     <script>
+    // Variabel keranjang
+    let cart = [];
+    let totalTagihan = 0;
+
+    // Ambil elemen-elemen penting
+    const cartItems = document.getElementById('cartItems');
+    const totalPrice = document.getElementById('totalPrice');
+    const cartCount = document.getElementById('cartCount');
+    const cartSummary = document.getElementById('cartSummary');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const cartButton = document.getElementById('cartButton');
+    const paymentButton = document.getElementById('paymentButton'); 
+
+    // Event listener tombol tambah produk
+    addToCartButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+    const itemName = button.getAttribute('data-name');
+    const itemPrice = parseInt(button.getAttribute('data-price'));
+
+    // Cek apakah item sudah ada di keranjang
+    const existingItem = cart.find((item) => item.name === itemName);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ name: itemName, price: itemPrice, quantity: 1 });
+    }
+
+    // Update total tagihan
+    totalTagihan += itemPrice;
+
+        // Update tampilan keranjang
+        updateCartUI();
+      });
+    });
+
+    // Fungsi untuk memperbarui tampilan keranjang
+    function updateCartUI() {
+      cartItems.innerHTML = ''; 
+    
+      cart.forEach((item) => {
+        const li = document.createElement('li');
+        li.classList.add('flex', 'items-center', 'justify-between', 'border-b', 'pb-2');
+      
+        // Kiri: Nama Item dan Quantity
+        const itemDetails = document.createElement('div');
+        itemDetails.classList.add('flex', 'items-center', 'space-x-2');
+      
+        const itemName = document.createElement('span');
+        itemName.textContent = `${item.name} x${item.quantity}`;
+        itemName.classList.add('font-medium', 'text-gray-700');
+      
+        // Harga Item
+        const itemPrice = document.createElement('span');
+        itemPrice.textContent = `Rp ${item.price * item.quantity}`;
+        itemPrice.classList.add('text-gray-600', 'text-sm');
+      
+        // Tombol Kurang
+        const minusButton = document.createElement('button');
+        minusButton.classList.add('bg-red-500', 'text-white', 'w-8', 'h-8', 'rounded', 'flex', 'items-center', 'justify-center');
+        minusButton.textContent = '-';
+        minusButton.addEventListener('click', () => decreaseQuantity(item));
+      
+        // Gabungkan elemen
+        itemDetails.appendChild(itemName);
+        itemDetails.appendChild(itemPrice);
+        li.appendChild(itemDetails);
+        li.appendChild(minusButton);
+      
+        cartItems.appendChild(li);
+      });
+    
+      // Update total harga dan jumlah barang
+      totalPrice.textContent = `Rp ${totalTagihan}`;
+      cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+    }
+
+    // Fungsi untuk mengurangi quantity barang
+    function decreaseQuantity(item) {
+      if (item.quantity > 1) {
+        item.quantity -= 1;
+        totalTagihan -= item.price;
+      } else {
+        cart = cart.filter((i) => i !== item);
+        totalTagihan -= item.price;
+      }
+    
+      updateCartUI(); 
+    }
+
+    // Toggle ringkasan keranjang saat tombol keranjang ditekan
+    cartButton.addEventListener('click', () => {
+      cartSummary.classList.toggle('hidden');
+    });
+
+    // Event listener tombol pembayaran
+    paymentButton.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('Your cart is empty. Please add items before proceeding to checkout.');
+        window.location.href = 'product.html';
+      } else {
+        // Simpan data keranjang dan total harga ke localStorage
+        localStorage.setItem('cartData', JSON.stringify(cart));
+        localStorage.setItem('totalPrice', totalTagihan);
+
+        // Pindahkan ke halaman pembayaran
+        window.location.href = 'payment.html';
+      }
+    });
+
       document
         .getElementById("navbarToggle")
         .addEventListener("click", function () {
@@ -786,6 +913,7 @@
           dropdownMenu.classList.toggle("hidden");
         });
       feather.replace();
+
     </script>
 
     <link
