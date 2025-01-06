@@ -155,54 +155,67 @@
       <div
         class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
-        <div class="text-center text-white px-6">
-          <!-- Judul Utama -->
-          <h1 class="text-4xl font-bold md:text-5xl font-awesome">
-            Nikmatilah Kopi Favorite anda Bersama
-            <span class="text-coffee fo">dropCoffee</span>
-          </h1>
-          <!-- Tempat untuk Tanggal dan Waktu -->
-          <p
-            id="currentDateTime"
-            class="mt-4 text-md md:text-lg font-semibold font-['Road']"
-          >
-            <!-- Tanggal & Waktu akan ditampilkan di sini -->
-          </p>
-          <a
+      <div class="text-center text-white px-6">
+        <!-- Judul Utama -->
+        <h1 class="text-4xl font-bold md:text-5xl font-awesome">
+          Nikmatilah Kopi Favorite anda Bersama
+          <span class="text-coffee fo">dropCoffee</span>
+        </h1>
+        <!-- Tempat untuk Tanggal dan Waktu -->
+        <p
+          id="currentDateTime"
+          class="mt-4 text-md md:text-lg font-semibold font-['Road']"
+        >
+          
+        </p>
+        <a
           href="product.html"
           class="mt-6 inline-block bg-coffee text-white py-2 px-6 rounded-lg hover:bg-coffee-dark transition"
         >
           ORDER NOW
         </a>
-        </div>
+      </div>      
       </div>
     </section>
 
     <script>
-      // Fungsi untuk mendapatkan dan menampilkan waktu saat ini
-      function displayDateTime() {
-        const now = new Date(); // Ambil waktu sekarang
-        const options = {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        };
-        // Format waktu ke dalam bahasa Indonesia
-        const formattedDate = now.toLocaleDateString("id-ID", options);
-        // Menampilkan tanggal & waktu ke elemen dengan ID 'currentDateTime'
-        document.getElementById("currentDateTime").innerText = formattedDate;
-      }
-
-      // Jalankan fungsi saat halaman dimuat
-      displayDateTime();
-      // Update waktu setiap detik
-      setInterval(displayDateTime, 1000);
-    </script>
-
+      async function fetchDateTime() {
+        try {
+          // URL API waktu
+          const response = await fetch("https://worldtimeapi.org/api/timezone/Asia/Jakarta");
+          if (!response.ok) throw new Error("Gagal mengambil data waktu");
+    
+          // Parse data JSON dari API
+          const data = await response.json();
+    
+          // Format waktu dari API
+          const dateTime = new Date(data.datetime);
+          const options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          };
+    
+          // Format waktu ke dalam bahasa Indonesia
+          const formattedDate = dateTime.toLocaleDateString("id-ID", options);
+    
+          // Menampilkan tanggal & waktu ke elemen dengan ID 'currentDateTime'
+          document.getElementById("currentDateTime").innerText = formattedDate;
+        } catch (error) {
+          console.error("Terjadi kesalahan:", error);
+          document.getElementById("currentDateTime").innerText =
+            "Gagal memuat waktu. Coba lagi nanti.";
+          setTimeout(fetchDateTime, 10000);
+        }
+      }  
+      fetchDateTime();
+      setInterval(fetchDateTime, 60000);
+    </script>    
+    
     <!-- Our Products Section -->
     <section id="product" class="bg-white py-12">
       <div class="container mx-auto px-6">
